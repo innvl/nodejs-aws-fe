@@ -9,9 +9,9 @@ import {makeStyles} from '@material-ui/core/styles';
 import {Product} from "models/Product";
 import {formatAsPrice} from "utils/utils";
 import AddProductToCart from "components/AddProductToCart/AddProductToCart";
-// import axios from 'axios';
-// import API_PATHS from "constants/apiPaths";
-import productList from "./productList.json";
+// import productList from "./productList.json";
+import axios from 'axios';
+import API_PATHS from 'constants/apiPaths';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   cardMedia: {
-    paddingTop: '56.25%', // 16:9
+    paddingTop: '125%', // 16:9
   },
   cardContent: {
     flexGrow: 1,
@@ -36,9 +36,8 @@ export default function Products() {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    // axios.get(`${API_PATHS.bff}/product/available/`)
-    //   .then(res => setProducts(res.data));
-    setProducts(productList);
+    axios.get(`${API_PATHS.product}/products`)
+      .then(res => setProducts(res.data.books));
   }, [])
 
   return (
@@ -48,8 +47,8 @@ export default function Products() {
           <Card className={classes.card}>
             <CardMedia
               className={classes.cardMedia}
-              image={`https://source.unsplash.com/random?sig=${index}`}
-              title="Image title"
+              image={product.thumbnailUrl}
+              title={product.title}
             />
             <CardContent className={classes.cardContent}>
               <Typography gutterBottom variant="h5" component="h2">

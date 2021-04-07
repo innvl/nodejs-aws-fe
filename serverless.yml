@@ -1,4 +1,4 @@
-service: store
+service: booksstore
 
 frameworkVersion: '2'
 
@@ -13,7 +13,7 @@ plugins:
 
 custom:
   client:
-    bucketName: store-03282021
+    bucketName: books-store-aws-node-aws-0407
     distributionFolder: build
   
   s3LocalPath: ${self:custom.client.distributionFolder}/
@@ -59,7 +59,7 @@ resources:
       Properties:
         DistributionConfig:
           Origins:
-            - DomainName: ${self:custom.s3BucketName}.s3.amazonaws.com
+            - DomainName: !GetAtt WebAppS3Bucket.RegionalDomainName
               Id: myS3Origin
               S3OriginConfig:
                 OriginAccessIdentity: !Sub origin-access-identity/cloudfront/${OriginAccessIdentity}
