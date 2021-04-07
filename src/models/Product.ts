@@ -1,9 +1,13 @@
 import * as Yup from 'yup';
 
 export type Product = {
-  id: string,
   title: string,
-  description: string,
+  id: string,
+  thumbnailUrl: string,
+  description?: string,
+  authors: string[],
+  categories?: string[],
+  availableOnStock: number,
   price: number,
 };
 
